@@ -6,19 +6,24 @@ A comprehensive framework for tracking system performance, identifying bottlenec
 
 ## Features
 
-- 📊 **Real-time Monitoring** of CPU, memory, disk, and network usage
-- ⚠️ **Bottleneck Detection** with severity classification
+- 📊 **Real-time Monitoring** of CPU, memory, disk, network usage, and per-interface statistics
+- 🌡️ **Temperature Monitoring** (where supported)
+- ⚠️ **Bottleneck Detection** with severity classification and detailed suggestions
 - 🚀 **Optimization Suggestions** for each detected issue
-- 📈 **Historical Reporting** in JSON format
+- 📈 **Historical Reporting** in JSON format (with thresholds and time range)
 - 🔄 **Git Integration** for version control of reports
 - 🧵 **Multi-threaded Architecture** for concurrent monitoring
-- ⚙️ **System Optimization** commands for performance tuning
+- ⚙️ **System Optimization** commands for performance tuning (persistent and runtime)
+- 📨 **Email Alert Callback** (placeholder, ready for integration)
+- 📝 **Configurable Thresholds** via command line or JSON
+- 🗂️ **Organized Logging** (file and console)
 
 ## Requirements
 
 - Python 3.8+
 - psutil library (`pip install psutil`)
 - Linux-based system (tested on Ubuntu 22.04, CentOS 7)
+- For full optimization: root privileges (sudo) and a compatible Linux kernel
 
 ## Installation
 
@@ -45,7 +50,6 @@ chmod +x system_monitor.py
 
 #### Build the Docker image
 ```bash
-# From the project root
 docker build -t system-resource-monitor .
 ```
 
@@ -80,10 +84,36 @@ docker run --rm --privileged system-resource-monitor ./optimize.sh
 ./system_monitor.py --interval 2 --duration 120
 ```
 
+### Advanced Options
+
+- **Custom Thresholds:**
+  ```bash
+  ./system_monitor.py --thresholds '{"cpu":85,"memory":80,"disk":90}'
+  ```
+- **Enable Email Alerts (placeholder):**
+  ```bash
+  ./system_monitor.py --email-alerts
+  ```
+- **Log Output:**
+  - Logs are saved in the `logs/` directory and also printed to the console.
+- **Reports:**
+  - JSON reports are saved in the `reports/` directory.
+
 ### Optimization Script
+
+The included optimization script performs:
+- Kernel parameter tuning (swappiness, cache pressure, dirty ratios)
+- Swappiness adjustment
+- File handle limit increase
+- Disk scheduler optimization (all detected disks)
+- Network performance tuning
+- Filesystem buffer flushing
+- Cache management
+- Persistent changes via `/etc/sysctl.d/99-performance.conf`
+- Root privilege check
+
 ```bash
-# Run standalone optimizations
-./optimize.sh
+sudo ./optimize.sh
 ```
 
 ## Configuration
