@@ -1,6 +1,8 @@
 # 🚀 System Resource Monitor & Optimizer
 
+<!--
 ![Dashboard Banner](https://via.placeholder.com/1000x250?text=System+Resource+Monitor+%26+Optimizer)
+-->
 
 <p align="center">
   <b>Track, analyze, and optimize your system resources in real time.</b><br>
@@ -15,6 +17,8 @@
 </p>
 
 ---
+
+> **Note:** The dashboard image above was a placeholder. A web dashboard is a planned feature (see Roadmap), but is not yet implemented in this repository.
 
 ## ✨ Features
 
