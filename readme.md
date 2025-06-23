@@ -1,134 +1,128 @@
-# System Resource Monitor and Optimizer
+# 🚀 System Resource Monitor & Optimizer
 
-![System Monitoring Dashboard](https://via.placeholder.com/800x400?text=Resource+Monitoring+Dashboard)
+![Dashboard Banner](https://via.placeholder.com/1000x250?text=System+Resource+Monitor+%26+Optimizer)
 
-A comprehensive framework for tracking system performance, identifying bottlenecks, and suggesting optimizations across multi-threaded environments.
+<p align="center">
+  <b>Track, analyze, and optimize your system resources in real time.</b><br>
+  <a href="#features">Features</a> • <a href="#quickstart">Quickstart</a> • <a href="#usage">Usage</a> • <a href="#docker">Docker</a> • <a href="#optimization">Optimization</a> • <a href="#contributing">Contributing</a>
+</p>
 
-## Features
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.8%2B-blue?logo=python" />
+  <img src="https://img.shields.io/badge/License-MIT-green" />
+  <img src="https://img.shields.io/badge/Platform-Linux-important" />
+  <img src="https://img.shields.io/badge/Docker-Ready-blue" />
+</p>
 
-- 📊 **Real-time Monitoring** of CPU, memory, disk, network usage, and per-interface statistics
-- 🌡️ **Temperature Monitoring** (where supported)
-- ⚠️ **Bottleneck Detection** with severity classification and detailed suggestions
-- 🚀 **Optimization Suggestions** for each detected issue
-- 📈 **Historical Reporting** in JSON format (with thresholds and time range)
-- 🔄 **Git Integration** for version control of reports
-- 🧵 **Multi-threaded Architecture** for concurrent monitoring
-- ⚙️ **System Optimization** commands for performance tuning (persistent and runtime)
-- 📨 **Email Alert Callback** (placeholder, ready for integration)
-- 📝 **Configurable Thresholds** via command line or JSON
-- 🗂️ **Organized Logging** (file and console)
+---
 
-## Requirements
+## ✨ Features
 
-- Python 3.8+
-- psutil library (`pip install psutil`)
-- Linux-based system (tested on Ubuntu 22.04, CentOS 7)
-- For full optimization: root privileges (sudo) and a compatible Linux kernel
+- 📊 **Live Monitoring**: CPU, memory, disk, network, per-interface stats
+- 🌡️ **Temperature Sensors**: (where supported)
+- ⚡ **Bottleneck Detection**: Severity classification & actionable suggestions
+- 📝 **Configurable Thresholds**: CLI or JSON
+- 📈 **Historical JSON Reports**: With thresholds, time range, and analysis
+- 🔄 **Git Integration**: Auto-commit reports
+- 🧵 **Multi-threaded**: Fast, concurrent monitoring
+- ⚙️ **System Optimization**: Kernel, disk, network, and persistent tuning
+- 📨 **Email Alert Callback**: (ready for integration)
+- 🗂️ **Organized Logging**: File & console
 
-## Installation
+---
+
+## 📦 Quickstart
 
 ```bash
-# Clone the repository
-git clone https://github.com/yourusername/system-resource-monitor.git
-cd system-resource-monitor
+# 1. Clone & enter the repo
+$ git clone https://github.com/yourusername/system-resource-monitor.git
+$ cd system-resource-monitor
 
-# Install dependencies
-pip install -r requirements.txt
+# 2. Install dependencies
+$ pip install -r requirements.txt
 
-# Make the script executable
-chmod +x system_monitor.py
+# 3. Start monitoring (5 min default)
+$ ./system_monitor.py
 ```
 
-## Usage
+---
 
-### Docker Usage
+## 🐳 Docker
 
-> **Note:**
-> - The optimization script (`optimize.sh`) requires a privileged container (`--privileged`) and a compatible Linux host. Some commands (like `sysctl` and disk scheduler tuning) may not work in minimal Docker images or non-Linux environments.
-> - The default `python:3.8-slim` image does not include `sysctl` or support all kernel parameter changes. For full optimization support, use a more complete base image and ensure your host allows these operations.
-> - Monitoring and reporting features work in all environments.
+> **Note:** Optimization requires `--privileged` and a compatible Linux host. Some features (e.g., `sysctl`, disk tuning) may not work in minimal images or non-Linux environments.
 
-#### Build the Docker image
 ```bash
-docker build -t system-resource-monitor .
+# Build image
+$ docker build -t system-resource-monitor .
+
+# Run monitor (5 min)
+$ docker run --rm system-resource-monitor python system_monitor.py --duration 300
+
+# Run with optimization & report
+$ docker run --rm -v $(pwd):/app system-resource-monitor python system_monitor.py --optimize --report system_report.json
+
+# Run optimization script only
+$ docker run --rm --privileged system-resource-monitor ./optimize.sh
 ```
 
-#### Run the monitor (5 minutes example)
-```bash
-docker run --rm --name monitor system-resource-monitor python system_monitor.py --duration 300
-```
+---
 
-#### Run with optimization and report
-```bash
-docker run --rm -v $(pwd):/app system-resource-monitor python system_monitor.py --optimize --report system_report.json
-```
+## ⚡ Usage
 
-#### Run the optimization script only
-```bash
-docker run --rm --privileged system-resource-monitor ./optimize.sh
-```
-
-### Basic Monitoring (5 minutes)
+### Basic Monitoring
 ```bash
 ./system_monitor.py --duration 300
 ```
 
-### Generate Report with Optimization
+### Custom Config
+```bash
+./system_monitor.py --interval 2 --duration 120 --thresholds '{"cpu":85,"memory":80,"disk":90}'
+```
+
+### Enable Email Alerts (placeholder)
+```bash
+./system_monitor.py --email-alerts
+```
+
+### Generate Report & Auto-commit
 ```bash
 ./system_monitor.py --optimize --report system_report.json
 ```
 
-### Custom Monitoring Configuration
-```bash
-# 2-second interval for 2 minutes
-./system_monitor.py --interval 2 --duration 120
-```
+### Logs & Reports
+- Logs: `logs/`
+- Reports: `reports/`
 
-### Advanced Options
+---
 
-- **Custom Thresholds:**
-  ```bash
-  ./system_monitor.py --thresholds '{"cpu":85,"memory":80,"disk":90}'
-  ```
-- **Enable Email Alerts (placeholder):**
-  ```bash
-  ./system_monitor.py --email-alerts
-  ```
-- **Log Output:**
-  - Logs are saved in the `logs/` directory and also printed to the console.
-- **Reports:**
-  - JSON reports are saved in the `reports/` directory.
+## 🛠️ Optimization Script
 
-### Optimization Script
-
-The included optimization script performs:
-- Kernel parameter tuning (swappiness, cache pressure, dirty ratios)
-- Swappiness adjustment
-- File handle limit increase
+The included `optimize.sh` script performs:
+- Kernel parameter tuning (swappiness, cache, dirty ratios)
+- File handle & network tuning
 - Disk scheduler optimization (all detected disks)
-- Network performance tuning
-- Filesystem buffer flushing
-- Cache management
+- Filesystem buffer flushing & cache management
 - Persistent changes via `/etc/sysctl.d/99-performance.conf`
-- Root privilege check
+- **Root privilege check**
 
 ```bash
 sudo ./optimize.sh
 ```
 
-## Configuration
+---
 
-Modify monitoring thresholds in `system_monitor.py`:
+## 🧩 Configuration
+
+Edit thresholds in `system_monitor.py` or pass via CLI:
 ```python
 self.thresholds = {
-    'cpu': 80,          # CPU usage percentage
-    'memory': 75,        # RAM usage percentage
-    'disk': 85,          # Disk usage percentage
-    'swap': 50           # Swap usage percentage
+    'cpu': 80, 'memory': 75, 'disk': 85, 'swap': 50, 'network': 90
 }
 ```
 
-## Sample Report Output
+---
+
+## 📊 Sample Report
 
 ```json
 {
@@ -146,14 +140,7 @@ self.thresholds = {
           "severity": "High",
           "message": "High CPU usage: 87.5%",
           "details": "Core loads: 92.1%, 85.3%, 79.8%, 93.2%",
-          "suggestion": "Check CPU-intensive processes with 'top' command..."
-        },
-        {
-          "type": "Disk",
-          "severity": "Critical",
-          "message": "Disk space low: / (92.3%)",
-          "details": "Used: 98.34GB of 106.48GB",
-          "suggestion": "Clean up disk space on /..."
+          "suggestion": "Check CPU-intensive processes with 'top'..."
         }
       ]
     }
@@ -162,61 +149,39 @@ self.thresholds = {
 }
 ```
 
-## Optimization Script (optimize.sh)
+---
 
-The included optimization script performs:
-- Kernel parameter tuning
-- Swappiness adjustment
-- File handle limit increase
-- Disk scheduler optimization
-- Filesystem buffer flushing
-- Cache management
+## 🤝 Contributing
 
-```bash
-#!/bin/bash
-# System optimization script
-
-# Adjust swappiness
-sysctl vm.swappiness=10
-
-# Increase file handles
-sysctl fs.file-max=2097152
-ulimit -n 65536
-
-# Disk scheduler tuning
-echo deadline > /sys/block/sda/queue/scheduler
-
-# Clear caches
-sync
-echo 3 > /proc/sys/vm/drop_caches
-```
-
-## Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1. Fork the repository
-2. Create a new branch (`git checkout -b feature/improvement`)
-3. Commit your changes (`git commit -am 'Add new feature'`)
-4. Push to the branch (`git push origin feature/improvement`)
-5. Create a new Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Roadmap
-
-- [ ] Add container (Docker) monitoring support
-- [ ] Implement alerting system (email/SMS notifications)
-- [ ] Develop web-based dashboard
-- [ ] Add machine learning for predictive analysis
-- [ ] Create Windows compatibility layer
-
-## Support
-
-For issues and feature requests, please [open an issue](https://github.com/yourusername/system-resource-monitor/issues).
+1. Fork & branch: `git checkout -b feature/your-feature`
+2. Commit: `git commit -am 'Add feature'`
+3. Push: `git push origin feature/your-feature`
+4. Open a Pull Request
 
 ---
 
-**System Resource Monitor v1.0** | [Documentation](docs/) | [Changelog](CHANGELOG.md)
+## 📜 License
+
+MIT — see [LICENSE](LICENSE)
+
+---
+
+## 🚦 Roadmap
+
+- [ ] Docker container monitoring
+- [ ] Alerting system (email/SMS)
+- [ ] Web dashboard
+- [ ] Predictive analysis (ML)
+- [ ] Windows compatibility
+
+---
+
+## 💬 Support
+
+For issues & feature requests, [open an issue](https://github.com/yourusername/system-resource-monitor/issues).
+
+---
+
+<p align="center">
+  <b>System Resource Monitor v1.0</b> | <a href="docs/">Documentation</a> | <a href="CHANGELOG.md">Changelog</a>
+</p>
