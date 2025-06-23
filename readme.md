@@ -39,7 +39,7 @@
 
 ```bash
 # 1. Clone & enter the repo
-$ git clone https://github.com/yourusername/system-resource-monitor.git
+$ git clone https://github.com/akashadsare/system-resource-monitor.git
 $ cd system-resource-monitor
 
 # 2. Install dependencies
@@ -182,10 +182,11 @@ MIT — see [LICENSE](LICENSE)
 
 ## 💬 Support
 
-For issues & feature requests, [open an issue](https://github.com/yourusername/system-resource-monitor/issues).
+For issues & feature requests, [open an issue](https://github.com/akashadsare/system-resource-monitor/issues).
 
 ---
 
 <p align="center">
-  <b>System Resource Monitor v1.0</b> | <a href="docs/">Documentation</a> | <a href="CHANGELOG.md">Changelog</a>
+  <b>System Resource Monitor v1.0</b> | <a href="docs/">Documentation</a> | <a href="CHANGELOG.md">Changelog</a><br>
+  <sub>Author: Akash Adsare</sub>
 </p>
